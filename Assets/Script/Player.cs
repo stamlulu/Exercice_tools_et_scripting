@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public string health;
+    public int health;
     public int maxHealth;
     public GameObject cube;
 }

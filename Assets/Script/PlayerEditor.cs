@@ -16,7 +16,7 @@ public class PlayerEditor : Editor
         {
             player.health = player.maxHealth;
         }
-        if (GUILayout.Button("Instantiate cube")
+        if (GUILayout.Button("Instantiate cube"))
         {
             Instantiate(player.cube);
         }
