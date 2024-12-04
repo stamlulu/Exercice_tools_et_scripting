@@ -33,8 +33,8 @@ public class Character_navigation : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, 100, environmentLayer))//MathF.Infinity 
         {
-            Debug.Log(hit.transform.name);
-            Debug.Log(hit.point);
+            //Debug.Log(hit.transform.name);
+            //Debug.Log(hit.point);
             agent.SetDestination(hit.point);
 
         }
