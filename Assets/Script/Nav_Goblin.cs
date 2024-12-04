@@ -70,6 +70,7 @@ public class EnemyPatrol : MonoBehaviour
         return false;
 
     }
+
     private EnemyPatrol()
     {
         if (Vector3.Distance(transform.position, patrolPoint) < 1f)

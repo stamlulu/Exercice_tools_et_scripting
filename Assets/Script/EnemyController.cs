@@ -18,7 +18,16 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Transform hero;
     [SerializeField] LayerMask detectionLayermask;
     Coroutine patrolCoroutine;
+    Coroutine hunteCoroutine;
+    GoblinState goblinState;
 
+    enum GoblinState
+    {
+        hunt,
+        patrol,
+        fight,
+
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -31,18 +40,14 @@ public class EnemyController : MonoBehaviour
         while (true)
         {
 
-            if (!CanSeeHero())
-            {
+          
+           
                 for (int i = 0; i < patrolPoints.Count; i++)
                 {
                 yield return  GoTo(patrolPoints[i].position);
                 yield return new WaitForSeconds(UnityEngine.Random.Range(3f,9f));
                 }
-            }
-            else
-            {//Hunt
-                GoTo(hero.position);
-            }
+          
         }
        
     }
@@ -50,12 +55,26 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
-            if (CanSeeHero())
-            {//Hunt hero
+            if (CanSeeHero() && goblinState == GoblinState.patrol)
+            {   //Go Hunt
+                Debug.Log("Find Hero");
+
+                goblinState = GoblinState.hunt;
                 StopCoroutine(patrolCoroutine);
+
                 StartCoroutine(Hunt());
-                
+
+                hunteCoroutine = StartCoroutine(Hunt());
+                //
             }
+            else if(!CanSeeHero() && goblinState == GoblinState.hunt)
+                    {
+
+                    goblinState = GoblinState.patrol;
+                     Debug.Log("Go Patrol");
+                    StopCoroutine(hunteCoroutine);
+                    patrolCoroutine =  StartCoroutine(Patrol());
+                    }
             yield return null;
         }
     }
